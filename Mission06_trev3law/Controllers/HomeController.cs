@@ -23,9 +23,21 @@ namespace Mission06_trev3law.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Podcasts()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Movie()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Movie(Movie movie)
+        {
+            return View("Confirmation", movie);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
