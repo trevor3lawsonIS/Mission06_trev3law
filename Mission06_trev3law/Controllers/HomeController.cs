@@ -13,9 +13,12 @@ namespace Mission06_trev3law.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private MovieContext _movieContext { get; set; }
+
+        public HomeController(ILogger<HomeController> logger, MovieContext movieContext)
         {
             _logger = logger;
+            _movieContext = movieContext;
         }
 
         public IActionResult Index()
@@ -37,6 +40,8 @@ namespace Mission06_trev3law.Controllers
         [HttpPost]
         public IActionResult Movie(Movie movie)
         {
+            _movieContext.Add(movie);
+            _movieContext.SaveChanges();
             return View("Confirmation", movie);
         }
 

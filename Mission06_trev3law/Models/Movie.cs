@@ -8,6 +8,10 @@ namespace Mission06_trev3law.Models
 {
     public class Movie
     { 
+        [Key]
+        [Required]
+        public int MovieID { get; set; }
+
         [Required]
         public string Category { get; set; }
 
