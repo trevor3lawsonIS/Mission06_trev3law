@@ -8,7 +8,7 @@ using Mission06_trev3law.Models;
 namespace Mission06_trev3law.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20230209025430_Initial")]
+    [Migration("20230212001245_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -17,15 +17,80 @@ namespace Mission06_trev3law.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.32");
 
+            modelBuilder.Entity("Mission06_trev3law.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CategoryID");
+
+                    b.ToTable("Category");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryID = 1,
+                            CategoryName = "Action/Adventure"
+                        },
+                        new
+                        {
+                            CategoryID = 2,
+                            CategoryName = "Romance"
+                        },
+                        new
+                        {
+                            CategoryID = 3,
+                            CategoryName = "Rom/Com"
+                        },
+                        new
+                        {
+                            CategoryID = 4,
+                            CategoryName = "Comedy"
+                        },
+                        new
+                        {
+                            CategoryID = 5,
+                            CategoryName = "Drama"
+                        },
+                        new
+                        {
+                            CategoryID = 6,
+                            CategoryName = "Family"
+                        },
+                        new
+                        {
+                            CategoryID = 7,
+                            CategoryName = "Horror/Suspense"
+                        },
+                        new
+                        {
+                            CategoryID = 8,
+                            CategoryName = "Miscellaneous"
+                        },
+                        new
+                        {
+                            CategoryID = 9,
+                            CategoryName = "Television"
+                        },
+                        new
+                        {
+                            CategoryID = 10,
+                            CategoryName = "VHS"
+                        });
+                });
+
             modelBuilder.Entity("Mission06_trev3law.Models.Movie", b =>
                 {
                     b.Property<int>("MovieID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CategoryID")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Director")
                         .IsRequired()
@@ -54,13 +119,15 @@ namespace Mission06_trev3law.Migrations
 
                     b.HasKey("MovieID");
 
+                    b.HasIndex("CategoryID");
+
                     b.ToTable("Movie");
 
                     b.HasData(
                         new
                         {
                             MovieID = 1,
-                            Category = "Action",
+                            CategoryID = 1,
                             Director = "Christopher Nolan",
                             Edited = false,
                             Lent_To = "Josh",
@@ -72,7 +139,7 @@ namespace Mission06_trev3law.Migrations
                         new
                         {
                             MovieID = 2,
-                            Category = "Rom/Com",
+                            CategoryID = 3,
                             Director = "Some Guy",
                             Edited = false,
                             Lent_To = "Ashley",
@@ -84,7 +151,7 @@ namespace Mission06_trev3law.Migrations
                         new
                         {
                             MovieID = 3,
-                            Category = "Action",
+                            CategoryID = 1,
                             Director = "Tom Cruise",
                             Edited = false,
                             Lent_To = "Me",
@@ -93,6 +160,15 @@ namespace Mission06_trev3law.Migrations
                             Title = "Top Gun Maverick",
                             Year = 2022
                         });
+                });
+
+            modelBuilder.Entity("Mission06_trev3law.Models.Movie", b =>
+                {
+                    b.HasOne("Mission06_trev3law.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

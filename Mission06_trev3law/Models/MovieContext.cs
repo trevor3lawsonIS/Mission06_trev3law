@@ -18,11 +18,24 @@ namespace Mission06_trev3law.Models
 
         protected override void OnModelCreating(ModelBuilder mb)
         {
+            mb.Entity<Category>().HasData(
+                 new Category { CategoryID=1, CategoryName= "Action/Adventure" },
+                 new Category { CategoryID = 2, CategoryName = "Romance" },
+                 new Category { CategoryID = 3, CategoryName = "Rom/Com" },
+                 new Category { CategoryID = 4, CategoryName = "Comedy" },
+                 new Category { CategoryID = 5, CategoryName = "Drama" },
+                 new Category { CategoryID = 6, CategoryName = "Family" },
+                 new Category { CategoryID=7, CategoryName = "Horror/Suspense" },
+                 new Category { CategoryID = 8, CategoryName = "Miscellaneous" },
+                 new Category { CategoryID = 9, CategoryName = "Television" },
+                 new Category { CategoryID = 10, CategoryName = "VHS" }
+                );
+
             mb.Entity<Movie>().HasData(
                 new Movie
                 {
                     MovieID = 1,
-                    Category = "Action",
+                    CategoryID = 1,
                     Title = "The Dark Knight",
                     Year = 2013,
                     Director = "Christopher Nolan",
@@ -34,7 +47,7 @@ namespace Mission06_trev3law.Models
                 new Movie
                 {
                     MovieID = 2,
-                    Category = "Rom/Com",
+                    CategoryID = 3,
                     Title = "Crazy Stupid Love",
                     Year = 2013,
                     Director = "Some Guy",
@@ -46,7 +59,7 @@ namespace Mission06_trev3law.Models
                 new Movie
                 {
                     MovieID = 3,
-                    Category = "Action",
+                    CategoryID = 1,
                     Title = "Top Gun Maverick",
                     Year = 2022,
                     Director = "Tom Cruise",
