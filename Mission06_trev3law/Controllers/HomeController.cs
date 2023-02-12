@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Mission06_trev3law.Models;
 using System;
@@ -11,14 +12,11 @@ namespace Mission06_trev3law.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private MovieContext MovieContext { get; set; }
 
-        private MovieContext _movieContext { get; set; }
-
-        public HomeController(ILogger<HomeController> logger, MovieContext movieContext)
+        public HomeController(MovieContext movieContext)
         {
-            _logger = logger;
-            _movieContext = movieContext;
+            MovieContext = movieContext;
         }
 
         public IActionResult Index()
@@ -34,26 +32,25 @@ namespace Mission06_trev3law.Controllers
         [HttpGet]
         public IActionResult NewMovie()
         {
+            ViewBag.Category = MovieContext.Category.ToList();
             return View();
         }
 
         [HttpPost]
         public IActionResult NewMovie(Movie movie)
         {
-            _movieContext.Add(movie);
-            _movieContext.SaveChanges();
+            MovieContext.Add(movie);
+            MovieContext.SaveChanges();
             return View("Confirmation", movie);
         }
 
         public IActionResult MyMovies()
         {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var movies = MovieContext.Movie
+                .Include(x => x.Category)
+                .OrderBy(x => x.Title)
+                .ToList();
+            return View(movies);
         }
     }
 }

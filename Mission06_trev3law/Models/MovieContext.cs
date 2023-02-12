@@ -15,6 +15,7 @@ namespace Mission06_trev3law.Models
         }
 
         public DbSet<Movie> Movie { get; set; }
+        public DbSet<Category> Category { get; set; }
 
         protected override void OnModelCreating(ModelBuilder mb)
         {

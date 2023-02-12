@@ -12,11 +12,6 @@ namespace Mission06_trev3law.Models
         [Required]
         public int MovieID { get; set; }
 
-        // Foreign Key
-        [Required]
-        public int CategoryID { get; set; }
-        public Category Category { get; set; }
-
         [Required]
         public string Title { get; set; }
 
@@ -35,5 +30,10 @@ namespace Mission06_trev3law.Models
 
         [MaxLength(25)]
         public string Notes { get; set; }
+
+        // Foreign Key
+        [Required]
+        public int CategoryID { get; set; }
+        public Category Category { get; set; }
     }
 }
