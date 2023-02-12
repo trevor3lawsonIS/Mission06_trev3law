@@ -32,17 +32,22 @@ namespace Mission06_trev3law.Controllers
         }
 
         [HttpGet]
-        public IActionResult Movie()
+        public IActionResult NewMovie()
         {
             return View();
         }
 
         [HttpPost]
-        public IActionResult Movie(Movie movie)
+        public IActionResult NewMovie(Movie movie)
         {
             _movieContext.Add(movie);
             _movieContext.SaveChanges();
             return View("Confirmation", movie);
+        }
+
+        public IActionResult MyMovies()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
