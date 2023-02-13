@@ -40,9 +40,16 @@ namespace Mission06_trev3law.Controllers
         [HttpPost]
         public IActionResult Movie(Movie movie)
         {
-            _movieContext.Add(movie);
-            _movieContext.SaveChanges();
-            return View("Confirmation", movie);
+            if (ModelState.IsValid)
+            {
+                _movieContext.Add(movie);
+                _movieContext.SaveChanges();
+                return View("Confirmation", movie);
+            }
+            else
+            {
+                return View();
+            };
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
