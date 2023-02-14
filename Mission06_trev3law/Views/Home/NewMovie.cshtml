@@ -9,6 +9,7 @@
 <h1>Movie:</h1>
 <div>
     <form method="post">
+        <input type="hidden" asp-for="MovieID" />
         <label asp-for="CategoryID">Category: </label>
         <select asp-for="CategoryID">
             <option value="">Select a Category</option>

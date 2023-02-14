@@ -32,7 +32,7 @@ namespace Mission06_trev3law.Controllers
         [HttpGet]
         public IActionResult NewMovie()
         {
-            ViewBag.Category = MovieContext.Category.ToList();
+            ViewBag.Category = MovieContext.Categories.ToList();
             return View();
         }
 
@@ -53,7 +53,7 @@ namespace Mission06_trev3law.Controllers
 
         public IActionResult MyMovies()
         {
-            var movies = MovieContext.Movie
+            var movies = MovieContext.Movies
                 .Include(x => x.Category)
                 .OrderBy(x => x.Title)
                 .ToList();
