@@ -32,7 +32,7 @@ namespace Mission06_trev3law.Controllers
         [HttpGet]
         public IActionResult NewMovie()
         {
-            ViewBag.Category = MovieContext.Categories.ToList();
+            ViewBag.Categories = MovieContext.Categories.ToList();
             return View();
         }
 
