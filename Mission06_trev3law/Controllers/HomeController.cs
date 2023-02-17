@@ -33,7 +33,7 @@ namespace Mission06_trev3law.Controllers
         public IActionResult NewMovie()
         {
             ViewBag.Categories = MovieContext.Categories.ToList();
-            return View();
+            return View("NewMovie", new Movie());
         }
 
         [HttpPost]
@@ -58,6 +58,35 @@ namespace Mission06_trev3law.Controllers
                 .OrderBy(x => x.Title)
                 .ToList();
             return View(movies);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            ViewBag.Categories = MovieContext.Categories.ToList();
+            var movie = MovieContext.Movies.Single(x => x.MovieID == id);
+            return View("NewMovie", movie);
+        }
+        [HttpPost]
+        public IActionResult Edit(Movie movie)
+        {
+            MovieContext.Update(movie);
+            MovieContext.SaveChanges();
+            return RedirectToAction("MyMovies");
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            var movie = MovieContext.Movies.Single(x => x.MovieID == id);
+            return View(movie);
+        }
+        [HttpPost]
+        public IActionResult Delete(Movie movie)
+        {
+            MovieContext.Movies.Remove(movie);
+            MovieContext.SaveChanges();
+            return RedirectToAction("MyMovies");
         }
     }
 }
